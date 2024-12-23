@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac</title>
+    <style>
+        body
+        {
+            background-color: #ffebcc;
+            margin: 0;
+            padding: 0;
+        }
+        .app-title
+        {
+            text-align: center;
+        }
+        .current-Player
+        {
+            text-align: center;
+        }
+        .board
+        {
+            width: fit-content;
+            margin: 40px auto;
+            background-color: #ff3333;
+            box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.3);
+            padding: 10px;
+        }
+        .box
+        {
+            background-color: #fff;
+            height: 100px;
+            width: 100px;
+            margin: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .box:hover
+        {
+            box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 5px;
+        }
+        .row
+        {
+            display: flex;
+        }
+        .player-icon
+        {
+            height: 50px;
+            
+        }
+        .reset-button
+        {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 20px;
+            background-color:#ff3333 ;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+
+        }
+        .reset-button:hover
+        {
+            background-color: #ff6666;
+            transition: 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="app-title">Tic Tac Toe</h1>
+   
+    <p class="current-Player">current Player: <span id="currentPlayer">X</span></p>
+    <div class="board">
+        <div class="row">
+            <div class="box" onclick="selectBox(0)" ></div>
+            <div class="box" onclick="selectBox(1)"></div>
+            <div class="box" onclick="selectBox(2)"></div>
+        </div>
+        <div class="row">
+            <div class="box" onclick="selectBox(3)"></div>
+            <div class="box" onclick="selectBox(4)"></div>
+            <div class="box" onclick="selectBox(5)"></div>
+        </div>
+        <div class="row">
+            <div class="box" onclick="selectBox(6)"></div>
+            <div class="box" onclick="selectBox(7)"></div>
+            <div class="box" onclick="selectBox(8)"></div>
+        </div>
+    </div>
+    <button class="reset-button" onclick="resetGame()">Reset Game</button>
+
+    <script>
+        const board = [-1, -1, -1, -1, -1, -1, -1, -1, -1];
+        let currentPlayer = 'X';
+
+        function renderBoard()
+        {
+           const allBoxes = document.querySelectorAll('.box');
+
+           allBoxes.forEach((boxElement, i)=>{
+            if(board[i]=='O'){
+                boxElement.innerHTML = '<img src = "player2.png" class = "player-icon" />';
+            }
+            else if(board[i]=='X'){
+                boxElement.innerHTML = '<img src = "player1.png" class = "player-icon"/>';
+            }
+            else{
+                boxElement.innerHTML = '';
+            }
+            
+
+           });
+           };
+        renderBoard();
+
+        function selectBox(boxNumber)
+        {
+            if(board[boxNumber] !== -1){
+                alert("Invalid Move");
+                return;
+            }
+
+            board[boxNumber] = currentPlayer;
+            renderBoard();
+
+            if(currentPlayer==="X")
+            
+            {
+                currentPlayer = "O";
+            }else{
+                currentPlayer = "X";
+            }
+
+            const currentPlayerElement = document.getElementById("currentPlayer");
+            currentPlayerElement.innerHTML = currentPlayer;
+            checkWinner();
+        }
+        function resetGame(){
+            board.fill(-1);
+            renderBoard();
+
+            currentPlayer = "X";
+            const currentPlayerElement = document.getElementById("currentPlayer");
+            currentPlayerElement.innerHTML = currentPlayer;
+        }
+        function checkWinner()
+        {
+            if(board[0] == "X" && board[1] == "X" && board[2] =="X"){
+                alert("Player 1 wins!");
+            } else if (board[3] == "X" && board[4] == "X" && board[5] =="X" ){
+                alert("Player 1 wins!");
+            }else if (board[6] == "X" && board[7] == "X" && board[8] =="X" ){
+                alert("Player 1 wins!");
+            }else if (board[0] == "X" && board[3] == "X" && board[6] =="X" ){
+                alert("Player 1 wins!");
+            }else if (board[1] == "X" && board[4] == "X" && board[7] =="X" ){
+                alert("Player 1 wins!");
+            }else if (board[2] == "X" && board[5] == "X" && board[8] =="X" ){
+                alert("Player 1 wins!");
+            }else if (board[0] == "X" && board[4] == "X" && board[8] =="X" ){
+                alert("Player 1 wins!");
+            }else if (board[2] == "X" && board[4] == "X" && board[6] =="X" ){
+                alert("Player 1 wins!");
+            }
+
+            if(board[0] == "O" && board[1] == "O" && board[2] =="O"){
+                alert("Player 2 wins!");
+            } else if (board[3] == "O" && board[4] == "O" && board[5] =="O" ){
+                alert("Player 2 wins!");
+            }else if (board[6] == "O" && board[7] == "O" && board[8] =="O" ){
+                alert("Player 2 wins!");
+            }else if (board[0] == "O" && board[3] == "O" && board[6] =="O" ){
+                alert("Player 2 wins!");
+            }else if (board[1] == "O" && board[4] == "O" && board[7] =="O" ){
+                alert("Player 2 wins!");
+            }else if (board[2] == "O" && board[5] == "O" && board[8] =="O" ){
+                alert("Player 2 wins!");
+            }else if (board[0] == "O" && board[4] == "O" && board[8] =="O" ){
+                alert("Player 2 wins!");
+            }else if (board[2] == "O" && board[4] == "O" && board[6] =="O" ){
+                alert("Player 2 wins!");
+            }
+        }
+    </script>
+</body>
+
+</html>
